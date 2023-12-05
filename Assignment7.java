@@ -2,27 +2,26 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 public class Assignment7 {
-    static void findSubset(int [] set, int target){
+    static void findSubset(int[] set,int target){
         Arrays.sort(set);
-        List<Integer> possibleAnsList = new ArrayList<>();
-        helper(set, target, 0, 0, possibleAnsList);
+        List<Integer> possibleAns = new ArrayList<>();
+        helper(set,target,0,0,possibleAns);
     }
 
-    static void helper(int set[] , int target, int currentSum, int index, List<Integer> possibleAnsList){
-
-        if(currentSum==target) {
-            System.out.println(possibleAnsList);
+    static void helper(int[] set,int target,int index,int currentSum,List<Integer> possibleAns){
+        if(currentSum == target){
+            System.out.println(possibleAns);
             return;
         }
-
         int prevElement = -1;
-        for (int i = index; i <set.length ; i++) {
-            if(prevElement != set[i]) {
-                if(currentSum + set[i] > target) break;
-                possibleAnsList.add(set[i]);
-                helper(set, target, currentSum + set[i], i + 1, possibleAnsList);
-                possibleAnsList.remove(possibleAnsList.size() - 1);
+
+        for(int i=index;i<set.length;i++){
+            if(prevElement != set[i]){
+                if(set[i] + currentSum > target) break;
+                possibleAns.add(set[i]);
                 prevElement = set[i];
+                helper(set, target, index+1, currentSum + set[i], possibleAns);
+                possibleAns.remove(possibleAns.size()-1);
             }
         }
     }
